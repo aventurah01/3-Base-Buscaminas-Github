@@ -84,12 +84,18 @@ public class ControlJuego {
 			i_inicial = 0;
 		}
 		int i_final = i + 1;
+		if (i_final >= LADO_TABLERO) {
+			i_final = 0;
+		}
 
 		int j_inicial = j - 1;
 		if (j_inicial < 0) {
 			j_inicial = 0;
 		}
 		int j_final = j + 1;
+		if (j_final >= LADO_TABLERO) {
+			j_final = 0;
+		}
 		for (int vertical = i_inicial; vertical <= i_final; vertical++) {
 			for (int horizaontal = j_inicial; horizaontal <= j_final; horizaontal++) {
 				if (tablero[vertical][horizaontal] == MINA) {
@@ -101,7 +107,8 @@ public class ControlJuego {
 	}
 
 	/**
-	 * Método que nos permite
+	 * Método que nos permite abrir una casilla. Devuelve verdadero y suma
+	 * puntuación.
 	 * 
 	 * @pre : La casilla nunca debe haber sido abierta antes, no es controlado por
 	 *      el ControlJuego. Por lo tanto siempre sumaremos puntos
@@ -110,7 +117,12 @@ public class ControlJuego {
 	 * @return : Verdadero si no ha explotado una mina. Falso en caso contrario.
 	 */
 	public boolean abrirCasilla(int i, int j) {
-		return false;
+		boolean abierta = false;
+		if (tablero[i][j] != MINA) {
+			abierta = true;
+			puntuacion++;
+		}
+		return abierta;
 	}
 
 	/**
@@ -121,6 +133,7 @@ public class ControlJuego {
 	 *         minas.
 	 **/
 	public boolean esFinJuego() {
+
 		return false;
 	}
 
@@ -149,7 +162,7 @@ public class ControlJuego {
 	 * @return Un entero que representa el número de minas alrededor de la celda
 	 */
 	public int getMinasAlrededor(int i, int j) {
-		return 0;
+		return tablero[i][j];
 	}
 
 	/**
@@ -158,7 +171,7 @@ public class ControlJuego {
 	 * @return Un entero con la puntuación actual
 	 */
 	public int getPuntuacion() {
-		return 0;
+		return puntuacion;
 	}
 
 }
