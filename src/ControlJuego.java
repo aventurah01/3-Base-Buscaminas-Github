@@ -60,10 +60,11 @@ public class ControlJuego {
 		// no son mina:
 		for (int i = 0; i < tablero.length; i++) {
 			for (int j = 0; j < tablero[i].length; j++) {
-				tablero[i][j] = calculoMinasAdjuntas(i, j);
+				if (tablero[i][j] != MINA) {
+					tablero[i][j] = calculoMinasAdjuntas(i, j);
+				}
 			}
 		}
-
 	}
 
 	/**
