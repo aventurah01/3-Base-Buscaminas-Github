@@ -72,6 +72,7 @@ public class ControlJuego {
 	 * mucho la i y la j valdrán LADO_TABLERO-1. Por lo tanto, como poco la i y la j
 	 * valdrán 0.
 	 * 
+	 * 
 	 * @param i: posición vertical de la casilla a rellenar
 	 * @param j: posición horizontal de la casilla a rellenar
 	 * @return : El número de minas que hay alrededor de la casilla [i][j]
