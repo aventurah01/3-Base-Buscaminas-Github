@@ -157,7 +157,7 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarNumMinasAlrededor(int i, int j) {
 		// TODO
-		// Seleccionar e panel[i][j] correspondiente
+		// Seleccionar el panel[i][j] correspondiente
 		// Eliminar sus componentes
 		// Añadimos un Jlabel y no editable con el número de minas alrededor
 		// Numero de minas alrededor se saca de ControlJuego (getMinasAlrededor)

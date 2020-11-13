@@ -134,8 +134,13 @@ public class ControlJuego {
 	 *         minas.
 	 **/
 	public boolean esFinJuego() {
-
-		return false;
+		boolean fin;
+		if (LADO_TABLERO * LADO_TABLERO - MINAS_INICIALES == puntuacion) {
+			fin = true;
+		} else {
+			fin = false;
+		}
+		return fin;
 	}
 
 	/**
