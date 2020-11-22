@@ -16,7 +16,9 @@ import javax.swing.SwingConstants;
 /**
  * Ventana principal del Buscaminas
  * 
- * @author {Rellenar por el alumno}
+ * @author Alberto Ventura Hermoso
+ * @version 1.0
+ * @see VentanaPrincipal#juego
  */
 public class VentanaPrincipal {
 
@@ -142,6 +144,34 @@ public class VentanaPrincipal {
 	 */
 	public void inicializarListeners() {
 		// TODO
+		for (int i = 0; i <= juego.LADO_TABLERO - 1; i++) {
+			for (int j = 0; j <= juego.LADO_TABLERO - 1; j++) {
+				botonesJuego[i][j].addActionListener(new ActionBoton(this, i, j));
+			}
+		}
+		/**
+		 * Listener del boton "Empezar"
+		 */
+		botonEmpezar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (int i = 0; i < panelesJuego.length; i++) {
+					for (int j = 0; j < panelesJuego[i].length; j++) {
+						panelesJuego[i][j].removeAll();
+					}
+				}
+				for (int i = 0; i < panelesJuego.length; i++) {
+					for (int j = 0; j < panelesJuego[i].length; j++) {
+						panelesJuego[i][j].add(botonesJuego[i][j]);
+						botonesJuego[i][j].setEnabled(true);
+					}
+				}
+				juego.inicializarPartida();
+				actualizarPuntuacion();
+			}
+
+		});
 
 	}
 
@@ -149,8 +179,8 @@ public class VentanaPrincipal {
 	 * Pinta en la pantalla el número de minas que hay alrededor de la celda Saca el
 	 * botón que haya en la celda determinada y añade un JLabel centrado y no
 	 * editable con el número de minas alrededor. Se pinta el color del texto según
-	 * la siguiente correspondecia (consultar la variable correspondeciaColor): - 0
-	 * : negro - 1 : cyan - 2 : verde - 3 : naranja - 4 ó más : rojo
+	 * la siguiente correspondecia (consultar la variable correspondeciaColor): - 0:
+	 * negro - 1: cyan - 2: verde - 3: naranja - 4 ó más: rojo
 	 * 
 	 * @param i: posición vertical de la celda.
 	 * @param j: posición horizontal de la celda.
@@ -161,7 +191,33 @@ public class VentanaPrincipal {
 		// Eliminar sus componentes
 		// Añadimos un Jlabel y no editable con el número de minas alrededor
 		// Numero de minas alrededor se saca de ControlJuego (getMinasAlrededor)
+		panelesJuego[i][j].remove(botonesJuego[i][j]);
 
+		int n_minas = juego.getMinasAlrededor(i, j);
+		JLabel n_minas_alrededor = new JLabel();
+		n_minas_alrededor.setText(Integer.toString(n_minas));
+		n_minas_alrededor.setHorizontalAlignment(SwingConstants.CENTER);
+
+		switch (n_minas) {
+			case 0:
+				n_minas_alrededor.setForeground(correspondenciaColores[n_minas]);
+				break;
+			case 1:
+				n_minas_alrededor.setForeground(correspondenciaColores[n_minas]);
+				break;
+
+			case 2:
+				n_minas_alrededor.setForeground(correspondenciaColores[n_minas]);
+				break;
+
+			case 3:
+				n_minas_alrededor.setForeground(correspondenciaColores[n_minas]);
+				break;
+			default:
+				n_minas_alrededor.setForeground(correspondenciaColores[n_minas]);
+				break;
+		}
+		panelesJuego[i][j].add(n_minas_alrededor);
 	}
 
 	/**
@@ -175,6 +231,19 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
 		// TODO
+		String mensaje = null;
+		if (porExplosion) {
+			mensaje = "Has perdido " + "\n" + "Puntuación: " + juego.getPuntuacion();
+			JOptionPane.showMessageDialog(ventana, mensaje);
+		} else {
+			mensaje = "Has ganado " + "\n" + "Puntuación: " + juego.getPuntuacion();
+			JOptionPane.showMessageDialog(ventana, mensaje);
+		}
+		for (int i = 0; i < botonesJuego.length; i++) {
+			for (int j = 0; j < botonesJuego[i].length; j++) {
+				botonesJuego[i][j].setEnabled(false);
+			}
+		}
 	}
 
 	/**
@@ -182,6 +251,7 @@ public class VentanaPrincipal {
 	 */
 	public void actualizarPuntuacion() {
 		// TODO
+		pantallaPuntuacion.setText(String.valueOf(juego.getPuntuacion()));
 	}
 
 	/**
